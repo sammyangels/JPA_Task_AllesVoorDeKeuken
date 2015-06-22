@@ -5,6 +5,7 @@ import be.vdab.filters.JPAFilter;
 
 import javax.persistence.EntityManager;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static be.vdab.filters.JPAFilter.getEntityManager;
@@ -22,5 +23,11 @@ public class ArtikelDAO extends AbstractDAO {
         return getEntityManager()
                 .createNamedQuery("Artikel.findByNaamContains", Artikel.class)
                 .setParameter("zoals", '%' + woord + '%').getResultList();
+    }
+
+    public void prijsverhoging(BigDecimal factor) {
+        getEntityManager().createNamedQuery("Artikel.prijsverhoging")
+                .setParameter("factor", factor)
+                .executeUpdate();
     }
 }
